@@ -24,8 +24,7 @@ namespace MovieWebApplication.Controllers
         public async Task<List<Result>> GetTopMovies()
         {
             try
-            {
-                List<Result> movieTops = new List<Result>();
+            {                
                 RestService.For<IMovieTopRated>(Links.UrlApi);
                 var request = await movieService.GetMovieTopRated();
                 await GetMoviePoster(request.Results);

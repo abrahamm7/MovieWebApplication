@@ -19,7 +19,7 @@ namespace MovieWebApplication.Controllers
         {
             var ListTopMovies = GetTopMovies();
             return View(ListTopMovies);
-        }
+        }        
 
         public async Task<List<Result>> GetTopMovies()
         {

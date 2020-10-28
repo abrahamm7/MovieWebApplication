@@ -17,8 +17,16 @@ namespace MovieWebApplication.Controllers
        
         public IActionResult Index()
         {
-            var ListTopMovies = GetTopMovies();
-            return View(ListTopMovies);
+            try
+            {
+                var ListTopMovies = GetTopMovies();
+                return View(ListTopMovies);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{ex.Message}");
+                return View(null);
+            }
         }        
 
         public async Task<List<Result>> GetTopMovies()
@@ -39,22 +47,42 @@ namespace MovieWebApplication.Controllers
 
         public async Task GetMoviePoster(List<Result> movies)
         {
-            foreach (var item in movies)
+            try
             {
-                var image = string.Format($"https://image.tmdb.org/t/p/w200{item.Poster_Path}");
-                item.Poster_Path = image;
+                foreach (var item in movies)
+                {
+                    var image = string.Format($"https://image.tmdb.org/t/p/w200{item.Poster_Path}");
+                    item.Poster_Path = image;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{ex.Message}");
             }
         }
 
         [HttpGet]
         public IActionResult DisplayDetails(string title, string overview, string post)
         {
+            try
+            {
+                var movie = MovieDetails(title, overview, post);
+                return View(movie);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{ex.Message}");
+                return View("Index");
+            }        
+        }
+
+        public Result MovieDetails(string title, string overview, string post)
+        {
             Result result = new Result();
             result.Title = title;
             result.Overview = overview;
-            result.Poster_Path = post;          
-
-            return View(result);
+            result.Poster_Path = post;
+            return result;
         }
     }
 }

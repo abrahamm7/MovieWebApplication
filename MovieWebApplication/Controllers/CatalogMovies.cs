@@ -45,5 +45,16 @@ namespace MovieWebApplication.Controllers
                 item.Poster_Path = image;
             }
         }
+
+        [HttpGet]
+        public IActionResult DisplayDetails(string title, string overview, string post)
+        {
+            Result result = new Result();
+            result.Title = title;
+            result.Overview = overview;
+            result.Poster_Path = post;          
+
+            return View(result);
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MovieWebApplication.Constants;
@@ -92,34 +93,34 @@ namespace MovieWebApplication.Controllers
         public async void UploadMovie(string title, string overview, string post)
         {
             try
-            {                
-                using (var client = new HttpClient())
-                {
-                    try
-                    {                      
+            {
+                //using var client = new HttpClient();
+                //try
+                //{
 
-                        var MovieToUpload = MovieDetails(title, overview, post);
+                //    var MovieToUpload = MovieDetails(title, overview, post);
 
-                        var values = new Dictionary<string, string>
-                        {
-                            {"Title", $"{MovieToUpload.Title}" },
-                            {"Overview", $"{MovieToUpload.Overview}" },
-                            {"Poster_Path", $"{MovieToUpload.Poster_Path}" }
-                        };
+                //    var values = new Dictionary<string, string>
+                //    {
+                //       {"Title", $"{MovieToUpload.Title}" },
+                //       {"Overview", $"{MovieToUpload.Overview}" },
+                //       {"Poster_Path", $"{MovieToUpload.Poster_Path}" }
+                //    };
 
 
-                        var content = new FormUrlEncodedContent(values);
+                //   // var content = new FormUrlEncodedContent(values);
 
-                        var response = await client.PostAsync("https://localhost:44372/api/Movies", content);
+                //    var formatjson = new StringContent(MovieToUpload.Title, Encoding.UTF32, "application/json");
 
-                        var responseString = await response.Content.ReadAsStringAsync();
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"{ex.Message}");
-                    }  
-                }                              
+                //    var response = await client.PostAsync("https://localhost:44372/api/Movies", formatjson);
+
+                //    var responseString = await response.Content.ReadAsStringAsync();
+
+                //}
+                //catch (Exception ex)
+                //{
+                //    Debug.WriteLine($"{ex.Message}");
+                //}
             }
             catch (Exception ex)
             {

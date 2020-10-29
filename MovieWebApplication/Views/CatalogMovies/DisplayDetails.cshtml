@@ -12,6 +12,7 @@
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
@@ -20,26 +21,29 @@
     <link href="..css/styles.css" rel="stylesheet" />
 </head>
 <body>
+    
     <section class="page-section portfolio" id="portfolio">
-        <div class="container">
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@Model.Title</h2>
+        @using (Html.BeginForm("UploadMovie", "CatalogMovies", new { title = Model.Title, overview = Model.Overview, post = Model.Poster_Path }))
+        {
+            <div class="container">
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@Model.Title</h2>
 
-            <!-- Portfolio Grid Items-->
-            <div class="row">
-                <!-- Portfolio Item 1-->
-                <div class="col-md-6 col-lg-4 mb-5">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                        <img class="img-fluid" src="@Model.Poster_Path" />
+                <!-- Portfolio Grid Items-->
+                <div class="row">
+                    <!-- Portfolio Item 1-->
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                            <img class="img-fluid" src="@Model.Poster_Path" />
+                        </div>
                     </div>
-                </div>
-                <div class="align-content-xl-start text-body">
-                    <h3>Overview: @Model.Overview</h3>
-                </div>
+                    <div class="align-content-xl-start text-body">
+                        <h3>Overview: @Model.Overview</h3>
+                    </div>
+                </div>                
+                <input type="submit" class="btn btn-outline-success" value="Set as favorite"/>
             </div>
-            @Html.ActionLink("Set as favorite", "", "CatalogMovies", new { title = Model.Title, overview = Model.Overview, post = Model.Poster_Path },
-                       new { @class = "btn btn-outline-success" })
+        }
 
-        </div>
     </section>
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

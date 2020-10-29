@@ -17,7 +17,14 @@ namespace MovieWebApplication.Controllers
 {
     public class CatalogMovies : Controller
     {
-        private IMovieTopRated movieService = new MovieTopRatedService();
+        private IMovieTopRated movieService;
+        private IUploadMovie UploadTitleMovie;
+
+        public CatalogMovies(IMovieTopRated topRated, IUploadMovie sentMovie)
+        {
+            movieService = topRated;
+            UploadTitleMovie = sentMovie;
+        }
        
         public IActionResult Index()
         {
@@ -96,32 +103,8 @@ namespace MovieWebApplication.Controllers
         {
             try
             {
-                //using var client = new HttpClient();
-                //try
-                //{
-                    var MovieToUpload = MovieDetails(title, overview, post, release, vote);
-
-                //    var values = new Dictionary<string, string>
-                //    {
-                //       {"Title", $"{MovieToUpload.Title}" },
-                //       {"Overview", $"{MovieToUpload.Overview}" },
-                //       {"Poster_Path", $"{MovieToUpload.Poster_Path}" }
-                //    };
-
-
-                //   // var content = new FormUrlEncodedContent(values);
-
-                //    var formatjson = new StringContent(MovieToUpload.Title, Encoding.UTF32, "application/json");
-
-                //    var response = await client.PostAsync("https://localhost:44372/api/Movies", formatjson);
-
-                //    var responseString = await response.Content.ReadAsStringAsync();
-
-                //}
-                //catch (Exception ex)
-                //{
-                //    Debug.WriteLine($"{ex.Message}");
-                //}
+                var MovieToUpload = MovieDetails(title, overview, post, release, vote);
+                UploadTitleMovie.SetMovie(MovieToUpload);
             }
             catch (Exception ex)
             {

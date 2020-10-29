@@ -55,7 +55,8 @@
                         <h3>Title: @item.Title</h3>
                         <h3>Review: @item.Vote_Average</h3>
                         <h3>Release Date: @item.Release_Date</h3>
-                        @Html.ActionLink("View","DisplayDetails","CatalogMovies", new { title = item.Title, overview = item.Overview, post = item.Poster_Path },
+                        @Html.ActionLink("View","DisplayDetails","CatalogMovies",
+                        new { title = item.Title, overview = item.Overview, post = item.Poster_Path, release = item.Release_Date, vote = item.Vote_Average },
                         new { @class = "btn btn-outline-primary" })
                         
                     </div>                   

@@ -66,11 +66,11 @@ namespace MovieWebApplication.Controllers
         }
 
         [HttpGet]
-        public IActionResult DisplayDetails(string title, string overview, string post)
+        public IActionResult DisplayDetails(string title, string overview, string post, string release, double vote)
         {
             try
             {
-                var movie = MovieDetails(title, overview, post);
+                var movie = MovieDetails(title, overview, post, release, vote);
                 return View(movie);
             }
             catch (Exception ex)
@@ -80,25 +80,26 @@ namespace MovieWebApplication.Controllers
             }        
         }
 
-        public Result MovieDetails(string title, string overview, string post)
+        public Result MovieDetails(string title, string overview, string post, string release, double vote)
         {
             Result result = new Result();
             result.Title = title;
             result.Overview = overview;
             result.Poster_Path = post;
+            result.Release_Date = release;
+            result.Vote_Average = vote;
             return result;
         }
 
         [HttpPost]
-        public async void UploadMovie(string title, string overview, string post)
+        public async void UploadMovie(string title, string overview, string post, string release, double vote )
         {
             try
             {
                 //using var client = new HttpClient();
                 //try
                 //{
-
-                //    var MovieToUpload = MovieDetails(title, overview, post);
+                    var MovieToUpload = MovieDetails(title, overview, post, release, vote);
 
                 //    var values = new Dictionary<string, string>
                 //    {

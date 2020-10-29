@@ -23,7 +23,8 @@
 <body>
     
     <section class="page-section portfolio" id="portfolio">
-        @using (Html.BeginForm("UploadMovie", "CatalogMovies", new { title = Model.Title, overview = Model.Overview, post = Model.Poster_Path }))
+        @using (Html.BeginForm("UploadMovie", "CatalogMovies", 
+             new { title = Model.Title, overview = Model.Overview, post = Model.Poster_Path, release = Model.Release_Date, vote = Model.Vote_Average }))
         {
             <div class="container">
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@Model.Title</h2>

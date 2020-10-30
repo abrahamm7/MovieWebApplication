@@ -16,11 +16,15 @@ namespace MovieWebApplication.Services
     {
         IConfiguration Configuration;
 
+        public UploadMovieToDb(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
         public void SetMovie(Result Movie)
         {
             try
             {
-                var Connection = Configuration.GetConnectionString("ConToDb").ToString();
+                var Connection = ConfigurationExtensions.GetConnectionString(Configuration, "ConToDb").ToString();
                 var connectdb = new SqlConnection(Connection);
                 var command = new SqlCommand("dbo.SetMovie", connectdb);
                 command.CommandType = CommandType.StoredProcedure;

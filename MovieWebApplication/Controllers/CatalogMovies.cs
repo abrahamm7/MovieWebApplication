@@ -99,16 +99,18 @@ namespace MovieWebApplication.Controllers
         }
 
         [HttpPost]
-        public async void UploadMovie(string title, string overview, string post, string release, double vote )
+        public IActionResult UploadMovie(string title, string overview, string post, string release, double vote )
         {
             try
             {
                 var MovieToUpload = MovieDetails(title, overview, post, release, vote);
                 UploadTitleMovie.SetMovie(MovieToUpload);
+                return RedirectToAction(actionName: "Index", controllerName: "CatalogMovies");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"{ex.Message}");                
+                Debug.WriteLine($"{ex.Message}");
+                return RedirectToAction(actionName: "Index", controllerName: "CatalogMovies");
             }
         }
     }

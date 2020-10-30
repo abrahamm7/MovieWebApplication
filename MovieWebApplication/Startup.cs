@@ -26,7 +26,7 @@ namespace MovieWebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IMovieTopRated, MovieTopRatedService>();           
-            services.AddScoped<IUploadMovie, UploadMovieToDb>();           
+            services.AddScoped<IUploadMovie, UploadMovieToDb>();
             services.AddControllersWithViews();
             
         }

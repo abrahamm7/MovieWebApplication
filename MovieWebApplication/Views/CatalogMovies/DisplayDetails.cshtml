@@ -21,10 +21,27 @@
     <link href="..css/styles.css" rel="stylesheet" />
 </head>
 <body>
-    
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Home</a>
+            <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1">@Html.ActionLink("Catalog","Index","CatalogMovies")</li>
+
+                    <li class="nav-item mx-0 mx-lg-1">@Html.ActionLink("Favorites","Index","CatalogMovies")</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <section class="page-section portfolio" id="portfolio">
-        @using (Html.BeginForm("UploadMovie", "CatalogMovies", 
-             new { title = Model.Title, overview = Model.Overview, post = Model.Poster_Path, release = Model.Release_Date, vote = Model.Vote_Average }))
+        @using (Html.BeginForm("UploadMovie", "CatalogMovies",
+            new { title = Model.Title, overview = Model.Overview, post = Model.Poster_Path, release = Model.Release_Date, vote = Model.Vote_Average }))
         {
             <div class="container">
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@Model.Title</h2>
@@ -40,8 +57,8 @@
                     <div class="align-content-xl-start text-body">
                         <h3>Overview: @Model.Overview</h3>
                     </div>
-                </div>                
-                <input type="submit" class="btn btn-outline-success" value="Set as favorite"/>
+                </div>
+                <input type="submit" class="btn btn-outline-success" value="Set as favorite" />
             </div>
         }
 

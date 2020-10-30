@@ -21,11 +21,11 @@ namespace MovieWebApplication.Services
           
         }
 
-        public List<MovieTopRated> GetFavorites()
+        public List<Result> GetFavorites()
         {
             try
             {
-                var GetAllMovies =  Dapper.GetAll<MovieTopRated>("dbo.GetFavoriteMovies", null, commandType: CommandType.StoredProcedure).ToList();
+                var GetAllMovies =  Dapper.GetAll<Result>("dbo.GetFavoriteMovies", null, commandType: CommandType.StoredProcedure).ToList();
                
                 return GetAllMovies;
               

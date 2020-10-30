@@ -8,6 +8,6 @@ namespace MovieWebApplication.Services
 {
     public interface IGetFavoriteMovies
     {
-        public List<MovieTopRated> GetFavorites();
+        public List<Result> GetFavorites();
     }
 }

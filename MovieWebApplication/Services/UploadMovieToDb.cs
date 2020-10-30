@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols;
 using MovieWebApplication.Models;
@@ -14,28 +15,25 @@ namespace MovieWebApplication.Services
 {
     public class UploadMovieToDb : IUploadMovie
     {
-        IConfiguration Configuration;
+        IDapper Dapper;
 
-        public UploadMovieToDb(IConfiguration configuration)
+        public UploadMovieToDb(IDapper dapper)
         {
-            Configuration = configuration;
+            Dapper = dapper;
+
         }
-        public void SetMovie(Result Movie)
+        public async void SetMovie(Result Movie)
         {
             try
             {
-                var Connection = ConfigurationExtensions.GetConnectionString(Configuration, "ConToDb").ToString();
-                var connectdb = new SqlConnection(Connection);
-                var command = new SqlCommand("dbo.SetMovie", connectdb);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@title", Movie.Title);
-                command.Parameters.AddWithValue("@releasedate", Movie.Release_Date);
-                command.Parameters.AddWithValue("@poster_path", Movie.Poster_Path);
-                command.Parameters.AddWithValue("@vote", Movie.Vote_Average);
-                command.Parameters.AddWithValue("@descrip", Movie.Overview);
-                connectdb.Open();
-                command.ExecuteNonQuery();
-                connectdb.Close();
+                var parameters = new DynamicParameters();
+                parameters.Add("@title",Movie.Title, DbType.String);
+                parameters.Add("@releasedate", Movie.Release_Date, DbType.String);
+                parameters.Add("@poster_path", Movie.Poster_Path, DbType.String);
+                parameters.Add("@vote", Movie.Vote_Average, DbType.String);
+                parameters.Add("@descrip", Movie.Overview, DbType.String);
+                var resultoperation = await Task.FromResult(Dapper.Insert<int>("dbo.SetMovie",parameters,commandType: CommandType.StoredProcedure));               
+               
             }
             catch (Exception ex)
             {

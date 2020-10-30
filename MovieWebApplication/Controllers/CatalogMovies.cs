@@ -40,10 +40,45 @@ namespace MovieWebApplication.Controllers
             }
         }        
 
+       
+
+        [HttpGet]
+        public IActionResult DisplayDetails(string title, string overview, string post, string release, double vote)
+        {
+            try
+            {
+                var movie = MovieDetails(title, overview, post, release, vote);
+                return View(movie);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{ex.Message}");
+                return View("Index");
+            }        
+        }
+
+        
+
+        [HttpPost]
+        public IActionResult UploadMovie(string title, string overview, string post, string release, double vote )
+        {
+            try
+            {
+                var MovieToUpload = MovieDetails(title, overview, post, release, vote);
+                UploadTitleMovie.SetMovie(MovieToUpload);
+                return RedirectToAction(actionName: "Index", controllerName: "CatalogMovies");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{ex.Message}");
+                return RedirectToAction(actionName: "Index", controllerName: "CatalogMovies");
+            }
+        }
+
         public async Task<List<Result>> GetTopMovies()
         {
             try
-            {                
+            {
                 RestService.For<IMovieTopRated>(Links.UrlApi);
                 var request = await movieService.GetMovieTopRated();
                 await GetMoviePoster(request.Results);
@@ -72,21 +107,6 @@ namespace MovieWebApplication.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult DisplayDetails(string title, string overview, string post, string release, double vote)
-        {
-            try
-            {
-                var movie = MovieDetails(title, overview, post, release, vote);
-                return View(movie);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"{ex.Message}");
-                return View("Index");
-            }        
-        }
-
         public Result MovieDetails(string title, string overview, string post, string release, double vote)
         {
             Result result = new Result();
@@ -96,22 +116,6 @@ namespace MovieWebApplication.Controllers
             result.Release_Date = release;
             result.Vote_Average = vote;
             return result;
-        }
-
-        [HttpPost]
-        public IActionResult UploadMovie(string title, string overview, string post, string release, double vote )
-        {
-            try
-            {
-                var MovieToUpload = MovieDetails(title, overview, post, release, vote);
-                UploadTitleMovie.SetMovie(MovieToUpload);
-                return RedirectToAction(actionName: "Index", controllerName: "CatalogMovies");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"{ex.Message}");
-                return RedirectToAction(actionName: "Index", controllerName: "CatalogMovies");
-            }
         }
     }
 }

@@ -27,8 +27,7 @@ namespace MovieWebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IDapper, DapperClass>();            
-            services.AddScoped<IMovieTopRated, MovieTopRatedService>();           
+            services.AddScoped<IDapper, DapperClass>();                              
             services.AddScoped<IUploadMovie, UploadMovieToDb>();
             services.AddScoped<IGetFavoriteMovies, GetFavoriteMovies>();            
             services.AddControllersWithViews();

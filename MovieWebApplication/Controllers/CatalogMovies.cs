@@ -17,27 +17,17 @@ namespace MovieWebApplication.Controllers
 {
     public class CatalogMovies : Controller
     {
-        private IMovieTopRated movieService;
-        private IUploadMovie UploadTitleMovie;
+        private readonly IUploadMovie UploadTitleMovie;
 
-        public CatalogMovies(IMovieTopRated topRated, IUploadMovie sentMovie)
-        {
-            movieService = topRated;
+        public CatalogMovies(IUploadMovie sentMovie)
+        {           
             UploadTitleMovie = sentMovie;
         }
        
         public IActionResult Index()
         {
-            try
-            {
-                var ListTopMovies = GetTopMovies();
-                return View(ListTopMovies);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"{ex.Message}");
-                return View(null);
-            }
+            var ListTopMovies = GetTopMovies();
+            return View(ListTopMovies);
         }        
 
        
@@ -79,10 +69,10 @@ namespace MovieWebApplication.Controllers
         {
             try
             {
-                RestService.For<IMovieTopRated>(Links.UrlApi);
-                var request = await movieService.GetMovieTopRated();
-                await GetMoviePoster(request.Results);
-                return request.Results;
+                var request = RestService.For<IMovieTopRated>(Links.UrlApi);
+                var response = await request.GetMovieTopRated();
+                await GetMoviePoster(response.Results);
+                return response.Results;
             }
             catch (Exception ex)
             {
@@ -93,17 +83,10 @@ namespace MovieWebApplication.Controllers
 
         public async Task GetMoviePoster(List<Result> movies)
         {
-            try
+            foreach (var item in movies)
             {
-                foreach (var item in movies)
-                {
-                    var image = string.Format($"https://image.tmdb.org/t/p/w200{item.Poster_Path}");
-                    item.Poster_Path = image;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"{ex.Message}");
+                var image = string.Format($"https://image.tmdb.org/t/p/w200{item.Poster_Path}");
+                item.Poster_Path = image;
             }
         }
 

@@ -8,73 +8,62 @@
 <html>
 <head>
     <title>Catalog</title>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="..css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="~/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
 </head>
-<body id="page-top">
+<body>
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">Home</a>
-            <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mx-0 mx-lg-1">@Html.ActionLink("Catalog", "Index", "CatalogMovies")</li>
-
-                    <li class="nav-item mx-0 mx-lg-1">@Html.ActionLink("Favorites", "Index", "FavoriteMovies")</li>
+            <a class="navbar-brand logo" href="#">Movies</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                 id="navbarNav">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation">@Html.ActionLink("Catalog", "Index", "CatalogMovies")</li>
+                    <li class="nav-item" role="presentation">@Html.ActionLink("Favorites", "Index", "FavoriteMovies")</li>
                 </ul>
             </div>
         </div>
     </nav>
-  
-    <section class="page-section portfolio" id="portfolio">
-        <div class="container">
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
-            @foreach (var item in await Model)
-            {
-                <!-- Portfolio Grid Items-->
+    <main class="page projects-page">
+        <section class="portfolio-block projects-cards">
+            <div class="container">
+                <div class="heading">
+                    <h2>catalog</h2>
+                </div>
                 <div class="row">
-                    <!-- Portfolio Item 1-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                            <img class="img-fluid" src="@item.Poster_Path" />
-                        </div>
-                    </div>
-                    <div class="align-content-xl-start text-body">
-                        <h3>Title: @item.Title</h3>
-                        <h3>Review: @item.Vote_Average</h3>
-                        <h3>Release Date: @item.Release_Date</h3>
-                        @Html.ActionLink("View","DisplayDetails","CatalogMovies",
+                    @foreach (var item in await Model)
+                    {
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card border-0">
+                                <a href="#"><img class="card-img-top scale-on-hover" src="@item.Poster_Path" alt="Card Image"></a>
+                                <div class="card-body">
+                                    <h6><a href="#">@item.Title</a></h6>
+                                    <p class="text-muted card-text">Rating: @item.Vote_Average</p>
+                                    @Html.ActionLink("View", "DisplayDetails", "CatalogMovies",
                         new { title = item.Title, overview = item.Overview, post = item.Poster_Path, release = item.Release_Date, vote = item.Vote_Average },
                         new { @class = "btn btn-outline-primary" })
-                        
-                    </div>                   
-                </div>               
-            }
-
-        </div>
-    </section>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+                                </div>
+                            </div>
+                        </div>
+                     }
+                </div>
+            </div>
+        </section>
+    </main>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="links"><a href="#">About me</a><a href="#">Contact me</a><a href="#">Projects</a></div>
+                <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
+            </div>
+        </footer>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+        <script src="assets/js/theme.js"></script>
 </body>
 </html>

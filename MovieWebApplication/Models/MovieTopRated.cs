@@ -7,6 +7,7 @@ namespace MovieWebApplication.Models
 {
     public class Result
     {
+        public int IdKey { get; set; }
         public double Popularity { get; set; }
         public int VoteCount { get; set; }
         public bool Video { get; set; }

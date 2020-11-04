@@ -13,7 +13,7 @@ namespace MovieWebApplication.Services
 {
     public class GetFavoriteMovies : IGetFavoriteMovies
     {
-        IDapper Dapper;
+        readonly IDapper Dapper;
        
         public GetFavoriteMovies(IDapper dapper)
         {

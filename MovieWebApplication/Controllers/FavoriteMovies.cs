@@ -9,7 +9,7 @@ namespace MovieWebApplication.Controllers
 {
     public class FavoriteMovies : Controller
     {
-        IGetFavoriteMovies getFavorite;
+        readonly IGetFavoriteMovies getFavorite;
 
         public FavoriteMovies(IGetFavoriteMovies getFavoriteMovies)
         {

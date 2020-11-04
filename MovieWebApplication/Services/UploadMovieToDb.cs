@@ -15,14 +15,14 @@ namespace MovieWebApplication.Services
 {
     public class UploadMovieToDb : IUploadMovie
     {
-        IDapper Dapper;
+        readonly IDapper Dapper;
 
         public UploadMovieToDb(IDapper dapper)
         {
             Dapper = dapper;
 
         }
-        public async void SetMovie(Result Movie)
+        public async Task SetMovie(Result Movie)
         {
             try
             {
@@ -33,7 +33,6 @@ namespace MovieWebApplication.Services
                 parameters.Add("@vote", Movie.Vote_Average, DbType.String);
                 parameters.Add("@descrip", Movie.Overview, DbType.String);
                 var resultoperation = await Task.FromResult(Dapper.Insert<int>("dbo.SetMovie",parameters,commandType: CommandType.StoredProcedure));               
-               
             }
             catch (Exception ex)
             {

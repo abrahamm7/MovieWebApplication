@@ -8,6 +8,6 @@ namespace MovieWebApplication.Services
 {
     public interface IUploadMovie
     {
-        public void SetMovie(Result Movie);
+        public Task SetMovie(Result Movie);
     }
 }

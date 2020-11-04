@@ -12,7 +12,7 @@ namespace MovieWebApplication.Services
 {
     public class DapperClass : IDapper
     {
-        IConfiguration Configuration;
+        readonly IConfiguration Configuration;
 
         public DapperClass(IConfiguration configuration)
         {

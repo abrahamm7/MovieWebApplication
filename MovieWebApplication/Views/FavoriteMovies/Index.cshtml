@@ -1,4 +1,4 @@
-﻿@model List<Result>
+﻿@model Task<List<Result>> 
 @{
     Layout = null;
 }
@@ -22,7 +22,7 @@
 </head>
 <body>
     <div class="container">
-        @foreach (var item in Model)
+        @foreach (var item in await Model)
         {
         <table class="table table-hover text-center">
             <thead>

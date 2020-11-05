@@ -28,8 +28,7 @@ namespace MovieWebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IDapper, DapperClass>();                              
-            services.AddScoped<IUploadMovie, UploadMovieToDb>();
-            services.AddScoped<IGetFavoriteMovies, GetFavoriteMovies>();            
+            services.AddScoped<IUploadMovie, UploadMovieToDb>();         
             services.AddControllersWithViews();
             
         }

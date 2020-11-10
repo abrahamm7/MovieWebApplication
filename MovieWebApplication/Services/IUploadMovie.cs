@@ -1,4 +1,5 @@
 ﻿using MovieWebApplication.Models;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace MovieWebApplication.Services
 {
     public interface IUploadMovie
     {
-        public Task SetMovie(Result Movie);
+        [Post("/api/Movies")]
+        public Task SetMovie([Body]Result Movie);
     }
 }

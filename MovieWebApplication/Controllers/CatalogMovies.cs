@@ -50,12 +50,13 @@ namespace MovieWebApplication.Controllers
         
 
         [HttpPost]
-        public IActionResult UploadMovie(string title, string overview, string post, string release, double vote )
+        public async Task<IActionResult> UploadMovie(string title, string overview, string post, string release, double vote )
         {
             try
             {
                 var MovieToUpload = MovieDetails(title, overview, post, release, vote);
-                UploadTitleMovie.SetMovie(MovieToUpload);
+                var sendrequest = RestService.For<IUploadMovie>(Links.FavoriteMoviesUrl);
+                await sendrequest.SetMovie(MovieToUpload);
                 return RedirectToAction(actionName: "Index", controllerName: "CatalogMovies");
             }
             catch (Exception ex)
